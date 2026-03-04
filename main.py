@@ -5,6 +5,7 @@ Organization: UNIR
 
 import os
 import sys
+import argparse
 
 DEFAULT_FILENAME = "words.txt"
 DEFAULT_DUPLICATES = False
@@ -22,28 +23,32 @@ def remove_duplicates_from_list(items):
 
 
 if __name__ == "__main__":
-    filename = DEFAULT_FILENAME
-    remove_duplicates = DEFAULT_DUPLICATES
-    if len(sys.argv) == 3:
-        filename = sys.argv[1]
-        remove_duplicates = sys.argv[2].lower() == "yes"
-    else:
-        print("Se debe indicar el fichero como primer argumento")
-        print("El segundo argumento indica si se quieren eliminar duplicados")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(description="Process a word list file.")
+    parser.add_argument('filename', help='Path to the file containing words (one per line)')
+    parser.add_argument('dup', choices=['yes', 'no'], help='yes to remove duplicates, no to keep them')
+    parser.add_argument('--sort', action='store_true', help='Sort the output alphabetically')
 
-    print(f"Se leerán las palabras del fichero {filename}")
-    file_path = os.path.join(".", filename)
+    args = parser.parse_args()
+
+    filename = args.filename
+    remove_duplicates = args.dup.lower() == 'yes'
+    do_sort = args.sort
+
+    print(f"Reading words from file {filename}")
+    file_path = os.path.join('.', filename)
     if os.path.isfile(file_path):
         word_list = []
-        with open(file_path, "r") as file:
+        with open(file_path, 'r', encoding='utf-8') as file:
             for line in file:
                 word_list.append(line.strip())
     else:
-        print(f"El fichero {filename} no existe")
+        print(f"File {filename} does not exist, using sample list")
         word_list = ["ravenclaw", "gryffindor", "slytherin", "hufflepuff"]
 
     if remove_duplicates:
         word_list = remove_duplicates_from_list(word_list)
 
-    print(sort_list(word_list))
+    if do_sort:
+        word_list = sort_list(word_list)
+
+    print(word_list)
