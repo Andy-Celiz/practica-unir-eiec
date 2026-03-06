@@ -45,3 +45,7 @@ Here are a few suggested extra features you might want to add to the script:
 - `--output <file>` : write the result to a specified file (e.g., CSV or TXT).
 
 If you want, I can implement any of these features (or another one you prefer). Tell me which one you'd like me to add.
+
+## Revisión -->
+
+-- Andy Admin estuvo aquí -> revisión de cambios realizados por Andy Zilec
