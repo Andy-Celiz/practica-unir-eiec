@@ -52,3 +52,8 @@ if __name__ == "__main__":
         word_list = sort_list(word_list)
 
     print(word_list)
+
+""" 
+## Revisión -->
+-- Andy Admin estuvo aquí -> revisión de cambios realizados por Andy Zilec 
+"""
